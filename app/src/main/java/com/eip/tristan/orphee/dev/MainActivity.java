@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.eip.tristan.orphee.R;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.billthefarmer.mididriver.MidiDriver;
 
@@ -217,5 +220,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         msg[2] = (byte) v;
 
         midi.write(msg);
+    }
+
+    public void logUser() {
+        Ion.with(this)
+                .load("http://example.com/thing.json")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                    }
+                });
     }
 }
