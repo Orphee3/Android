@@ -1,9 +1,10 @@
-package com.eip.tristan.orphee.dev;
+package com.eip.tristan.orphee.dev.activity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
@@ -19,10 +20,13 @@ import com.koushikdutta.ion.Ion;
 
 import org.billthefarmer.mididriver.MidiDriver;
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener,MidiDriver.OnMidiStartListener {
+public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener, View.OnTouchListener, View.OnClickListener,MidiDriver.OnMidiStartListener {
 
     protected MidiDriver midi;
     protected MediaPlayer player;
+
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
 
     private TextView text;
 
@@ -33,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         });
 
-        text = (TextView)findViewById(R.id.textView);
+
         View v = findViewById(R.id.button);
         if (v != null)
             v.setOnTouchListener(this);
@@ -104,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+
     }
 
     public boolean onTouch(View v, MotionEvent event)

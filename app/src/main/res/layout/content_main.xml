@@ -9,16 +9,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PLAY SOUND"
         android:id="@+id/button"
-        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp" />
 
@@ -42,4 +38,6 @@
         android:layout_alignTop="@+id/button2"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button" />
+
+
 </RelativeLayout>
