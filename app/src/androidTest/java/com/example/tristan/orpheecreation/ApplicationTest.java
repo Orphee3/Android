@@ -1,4 +1,4 @@
-package com.eip.tristan.orphee;
+package com.example.tristan.orpheecreation;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

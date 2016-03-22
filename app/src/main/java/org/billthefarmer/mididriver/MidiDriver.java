@@ -1,7 +1,7 @@
 package org.billthefarmer.mididriver;
 
 /**
- * Created by trstm on 10/10/2015.
+ * Created by Tristan on 05/03/2016.
  */
 public class MidiDriver
 {
@@ -26,11 +26,31 @@ public class MidiDriver
             listener.onMidiStart();
     }
 
-    // Queue event
+    // Write program change message, two bytes
 
-    public void queueEvent(byte[] event)
+    public boolean writeChange(int m, int i)
     {
-        write(event);
+        byte changeMsg[] = new byte[2];
+
+        changeMsg[0] = (byte)m;
+        changeMsg[1] = (byte)i;
+
+        write(changeMsg);
+        return true;
+    }
+
+    // Write note message, three bytes
+
+    public boolean writeNote(int m, int n, int v)
+    {
+        byte noteMsg[] = new byte[3];
+
+        noteMsg[0] = (byte)m;
+        noteMsg[1] = (byte)n;
+        noteMsg[2] = (byte)v;
+
+        write(noteMsg);
+        return true;
     }
 
     // Stop
@@ -57,8 +77,7 @@ public class MidiDriver
     // Native midi methods
 
     private native boolean init();
-    public  native int[]   config();
-    public  native boolean write(byte a[]);
+    private native boolean write(byte a[]);
     private native boolean shutdown();
 
     // Load midi library
