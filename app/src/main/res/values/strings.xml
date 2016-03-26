@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">OrpheeCreation</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">Orphee</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.tristan.orpheecreation;
+package com.eip.tristan.orphee;
 
 import org.junit.Test;
 

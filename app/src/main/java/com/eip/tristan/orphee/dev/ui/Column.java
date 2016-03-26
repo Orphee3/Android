@@ -1,11 +1,8 @@
-package com.example.tristan.orpheecreation.ui;
+package com.eip.tristan.orphee.dev.ui;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tristan.orpheecreation.R;

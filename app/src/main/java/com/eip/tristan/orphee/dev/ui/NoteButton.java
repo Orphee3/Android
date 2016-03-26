@@ -1,9 +1,6 @@
-package com.example.tristan.orpheecreation.ui;
+package com.eip.tristan.orphee.dev.ui;
 
 import android.widget.Button;
-import android.widget.LinearLayout;
-
-import com.example.tristan.orpheecreation.R;
 
 /**
  * Created by Tristan on 05/03/2016.
