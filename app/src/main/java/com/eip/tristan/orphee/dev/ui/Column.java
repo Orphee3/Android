@@ -22,15 +22,13 @@ import java.util.List;
  */
 public class Column {
     private int mId;
-    private MidiDriver mMidiDriver;
     private ArrayList<NoteButton> mNoteButtonList;
     private Context mContext;
 
     private final int DEFAULT_SIZE = 12;
 
-    public Column(Context context, MidiDriver midi, int id) {
+    public Column(Context context, int id) {
         mContext = context;
-        mMidiDriver = midi;
         mId = id;
         mNoteButtonList = new ArrayList<>();
 
@@ -39,8 +37,7 @@ public class Column {
         LinearLayout linearLayout = (LinearLayout) ((Activity)mContext).findViewById(R.id.trackContent);
         LinearLayout column_layout = (LinearLayout) inflater.inflate(R.layout.column_layout, linearLayout, false);
         for (int i =0; i < DEFAULT_SIZE; i++) {
-            Log.d("COLUMN", "Création bouton");
-            NoteButton noteButton = new NoteButton(mContext, mMidiDriver, 60+i);
+            NoteButton noteButton = new NoteButton(mContext, 60+i);
             mNoteButtonList.add(noteButton);
             column_layout.addView(noteButton.getButton());
         }

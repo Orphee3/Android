@@ -22,12 +22,27 @@ public class Midi implements MidiDriver.OnMidiStartListener {
             midiDriver.setOnMidiStartListener(this);
     }
 
+    public MidiDriver getMidiDriver() {
+        return midiDriver;
+    }
+
     public void sendMidi(int m, int p)
     {
         byte msg[] = new byte[2];
 
         msg[0] = (byte) m;
         msg[1] = (byte) p;
+
+        midiDriver.write(msg);
+    }
+
+    public void sendMidi(int m, int n, int v)
+    {
+        byte msg[] = new byte[3];
+
+        msg[0] = (byte) m;
+        msg[1] = (byte) n;
+        msg[2] = (byte) v;
 
         midiDriver.write(msg);
     }
@@ -40,7 +55,7 @@ public class Midi implements MidiDriver.OnMidiStartListener {
 
         // Get the config
 
-        int config[] = midiDriver.config();
+        /*int config[] = midiDriver.config();
         String format =
                 "maxVoices = %d\nnumChannels = %d\n" +
                         "sampleRate = %d\nmixBufferSize = %d";

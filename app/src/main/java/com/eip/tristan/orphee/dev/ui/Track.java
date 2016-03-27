@@ -13,26 +13,24 @@ import java.util.ArrayList;
  */
 public class Track {
     private Context mContext;
-    private MidiDriver mMidiDriver;
     private String mTitle;
     private ArrayList<Column> mColumnList;
     private int mInstrument;
 
     private final int DEFAULT_SIZE = 8;
 
-    Track(Context context, MidiDriver midi, String title) {
+    Track(Context context, String title) {
         mTitle = title;
         mContext = context;
-        mMidiDriver = midi;
         mInstrument = Instrument.getInstance().PIANO;
 
         mColumnList = new ArrayList<>();
         for (int i=0; i < DEFAULT_SIZE; i++)
-            mColumnList.add(new Column(mContext, mMidiDriver, i));
+            mColumnList.add(new Column(mContext, i));
     }
 
     public void addNewColumn() {
-        mColumnList.add(new Column(mContext, mMidiDriver, mColumnList.size()));
+        mColumnList.add(new Column(mContext, mColumnList.size()));
     }
 
     public void deleteColumnById(int id) {
@@ -49,16 +47,6 @@ public class Track {
 
     public void setInstrument(int instrument) {
         mInstrument = instrument;
-    }
-
-    protected void sendMidi(int m, int p)
-    {
-        byte msg[] = new byte[2];
-
-        msg[0] = (byte) m;
-        msg[1] = (byte) p;
-
-        mMidiDriver.write(msg);
     }
 
 }

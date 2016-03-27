@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.eip.tristan.orphee.R;
 import com.eip.tristan.orphee.dev.activity.CreationActivity;
+import com.eip.tristan.orphee.dev.midi.Midi;
 
 import org.billthefarmer.mididriver.MidiDriver;
 
@@ -17,14 +18,14 @@ import org.billthefarmer.mididriver.MidiDriver;
  */
 public class NoteButton {
     private Context mContext;
-    private MidiDriver mMidiDriver;
     private Button mButton;
     private int mNote;
     private boolean mLocked;
+    private Midi midiS;
 
-    public NoteButton(Context context, MidiDriver midi, int note) {
+    public NoteButton(Context context, int note) {
         mContext = context;
-        mMidiDriver = midi;
+        midiS = Midi.getInstance();
         mNote = note;
         mLocked = false;
         mButton = new Button(mContext);
@@ -39,7 +40,7 @@ public class NoteButton {
                     // Down
 
                     case MotionEvent.ACTION_DOWN:
-                        sendMidi(0x90, mNote, 63);
+                        midiS.sendMidi(0x90, mNote, 63);
                         if (mLocked) {
                             mLocked = false;
                             mButton.setBackgroundColor(Color.GRAY);
@@ -53,7 +54,7 @@ public class NoteButton {
                         // Up
 
                     case MotionEvent.ACTION_UP:
-                        sendMidi(0x80, mNote, 0);
+                        midiS.sendMidi(0x80, mNote, 0);
                         break;
 
 
@@ -78,31 +79,7 @@ public class NoteButton {
     }
 
     public void playNote() {
-        sendMidi(0x90, mNote, 63);
+        midiS.sendMidi(0x90, mNote, 63);
     }
 
-    // Send a midi message
-
-    protected void sendMidi(int m, int p)
-    {
-        byte msg[] = new byte[2];
-
-        msg[0] = (byte) m;
-        msg[1] = (byte) p;
-
-        mMidiDriver.write(msg);
-    }
-
-    // Send a midi message
-
-    protected void sendMidi(int m, int n, int v)
-    {
-        byte msg[] = new byte[3];
-
-        msg[0] = (byte) m;
-        msg[1] = (byte) n;
-        msg[2] = (byte) v;
-
-        mMidiDriver.write(msg);
-    }
 }

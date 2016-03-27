@@ -16,21 +16,19 @@ import java.util.ListIterator;
  */
 public class Song {
     private Context mContext;
-    private MidiDriver mMidiDriver;
     private String mTitle;
     private ArrayList<Track> mTrackList;
     private int mCurrentTrack;
 
-    public Song(Context context, MidiDriver midi, String title) {
+    public Song(Context context, String title) {
         mContext = context;
-        mMidiDriver = midi;
         mTitle = title;
         mTrackList = new ArrayList<>();
         mCurrentTrack = 0;
     }
 
     public void addNewTrack(String title) {
-        mTrackList.add(new Track(mContext, mMidiDriver, mTitle));
+        mTrackList.add(new Track(mContext, mTitle));
     }
 
     public void deleteTrackById(int id) {
