@@ -1,34 +1,58 @@
 package com.eip.tristan.orphee.dev.activity;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eip.tristan.orphee.R;
+import com.eip.tristan.orphee.dev.ui.Column;
+import com.eip.tristan.orphee.dev.ui.Song;
+import com.eip.tristan.orphee.dev.ui.Track;
 
 import org.billthefarmer.mididriver.MidiDriver;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class CreationActivity extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener,MidiDriver.OnMidiStartListener {
 
     protected MidiDriver midi;
     protected MediaPlayer player;
+    private Song song;
 
-    private TextView text;
+    private Button addColumn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
 
-        text = (TextView)findViewById(R.id.textView2);
+        addColumn = (Button) findViewById(R.id.addColumn);
+        addColumn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                song.getCurrentTrack().addNewColumn();
+                Log.d("CREATION", "ajout colonne");
+            }
+        });
+
         View v = findViewById(R.id.button);
         if (v != null)
             v.setOnTouchListener(this);
@@ -39,6 +63,11 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
 
         if (midi != null)
             midi.setOnMidiStartListener(this);
+
+        song = new Song(this, "");
+        song.addNewTrack("track1");
+        Log.d("CREATION", "number of columns = " + song.getCurrentTrack().getNumberOfColumns());
+
     }
 
     @Override
@@ -155,10 +184,10 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
                 player.start();
                 break;
 
-            case R.id.button4:
-                if (player != null)
-                    player.stop();
-                break;
+            /*case R.id.addColumn:
+                song.getCurrentTrack().addNewColumn();
+                Log.d("CREATION", "ajout colonne");
+                break;*/
         }
     }
 
@@ -179,8 +208,8 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
         String info = String.format(format, config[0], config[1],
                 config[2], config[3]);
 
-        if (text != null)
-            text.setText(info);
+        /*if (text != null)
+            text.setText(info);*/
     }
 
     // Send a midi message

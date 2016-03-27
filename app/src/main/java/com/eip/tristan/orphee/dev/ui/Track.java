@@ -1,8 +1,14 @@
 package com.eip.tristan.orphee.dev.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by Tristan on 05/03/2016.
@@ -10,25 +16,26 @@ import java.util.List;
 public class Track {
     private Context mContext;
     private String mTitle;
-    private List<Column> mColumnList;
+    private ArrayList<Column> mColumnList;
 
     private final int DEFAULT_SIZE = 8;
 
     Track(Context context, String title) {
         mTitle = title;
-    }
+        mContext = context;
 
-    public void init() {
+        mColumnList = new ArrayList<>();
         for (int i=0; i < DEFAULT_SIZE; i++)
-            mColumnList.add(new Column(mContext, i + 1));
+            mColumnList.add(new Column(mContext, i));
     }
 
     public void addNewColumn() {
-        mColumnList.add(new Column(mContext, mColumnList.size() + 1));
+        Log.d("TRACK", "add new column");
+        mColumnList.add(new Column(mContext, mColumnList.size()));
     }
 
     public void deleteColumnById(int id) {
-        // TODO
+        mColumnList.remove(id);
     }
 
     public int getNumberOfColumns() {

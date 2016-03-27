@@ -9,37 +9,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".dev.activity.CreationActivity">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PLAY MIDI"
-        android:id="@+id/button"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:id="@+id/notesNames"></LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="500dp"
+        android:layout_height="match_parent"
+        android:id="@+id/horizontalScrollView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp" />
+        android:layout_toEndOf="@id/notesNames"
+        android:layout_toRightOf="@id/notesNames">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PLAY SOUND"
-        android:id="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="153dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="STOP MIDI"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/trackContent"></LinearLayout>
 
-    <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/addColumn" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 </RelativeLayout>
