@@ -53,9 +53,9 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
             }
         });
 
-        View v = findViewById(R.id.button);
+       /* View v = findViewById(R.id.button);
         if (v != null)
-            v.setOnTouchListener(this);
+            v.setOnTouchListener(this);*/
 
         midi = new MidiDriver();
 
@@ -64,7 +64,7 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
         if (midi != null)
             midi.setOnMidiStartListener(this);
 
-        song = new Song(this, "");
+        song = new Song(this, midi, "");
         song.addNewTrack("track1");
         Log.d("CREATION", "number of columns = " + song.getCurrentTrack().getNumberOfColumns());
 
@@ -133,38 +133,37 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
             case MotionEvent.ACTION_DOWN:
                 switch (id)
                 {
-                    case R.id.button:
+                   /* case R.id.button:
                         sendMidi(0x90, 48, 63);
                         sendMidi(0x90, 52, 63);
                         sendMidi(0x90, 55, 63);
-                        break;
+                        break;*/
 
                     default:
                         return false;
                 }
-                break;
 
             // Up
 
             case MotionEvent.ACTION_UP:
                 switch (id)
                 {
-                    case R.id.button:
+                    /*case R.id.button:
                         sendMidi(0x80, 48, 0);
                         sendMidi(0x80, 52, 0);
                         sendMidi(0x80, 55, 0);
-                        break;
+                        break;*/
 
                     default:
                         return false;
                 }
-                break;
+
 
             default:
                 return false;
         }
 
-        return false;
+        //return false;
     }
 
     public void onClick(View v)
@@ -173,7 +172,7 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
 
         switch (id)
         {
-            case R.id.button2:
+           /* case R.id.button2:
                 if (player != null)
                 {
                     player.stop();
@@ -182,7 +181,7 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
 
                 player = MediaPlayer.create(this, R.raw.ants);
                 player.start();
-                break;
+                break;*/
 
             /*case R.id.addColumn:
                 song.getCurrentTrack().addNewColumn();
@@ -210,6 +209,10 @@ public class CreationActivity extends AppCompatActivity implements View.OnTouchL
 
         /*if (text != null)
             text.setText(info);*/
+    }
+
+    public MidiDriver getMidiDriver() {
+        return midi;
     }
 
     // Send a midi message

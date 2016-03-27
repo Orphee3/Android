@@ -3,6 +3,8 @@ package com.eip.tristan.orphee.dev.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import org.billthefarmer.mididriver.MidiDriver;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,19 +16,21 @@ import java.util.ListIterator;
  */
 public class Song {
     private Context mContext;
+    private MidiDriver mMidiDriver;
     private String mTitle;
     private ArrayList<Track> mTrackList;
     private int mCurrentTrack;
 
-    public Song(Context context, String title) {
+    public Song(Context context, MidiDriver midi, String title) {
         mContext = context;
+        mMidiDriver = midi;
         mTitle = title;
         mTrackList = new ArrayList<>();
         mCurrentTrack = 0;
     }
 
     public void addNewTrack(String title) {
-        mTrackList.add(new Track(mContext, title));
+        mTrackList.add(new Track(mContext, mMidiDriver, mTitle));
     }
 
     public void deleteTrackById(int id) {

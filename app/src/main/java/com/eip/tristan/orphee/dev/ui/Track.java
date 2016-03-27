@@ -1,37 +1,38 @@
 package com.eip.tristan.orphee.dev.ui;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.Log;
+
+import com.eip.tristan.orphee.dev.midi.Instrument;
+
+import org.billthefarmer.mididriver.MidiDriver;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by Tristan on 05/03/2016.
  */
 public class Track {
     private Context mContext;
+    private MidiDriver mMidiDriver;
     private String mTitle;
     private ArrayList<Column> mColumnList;
+    private int mInstrument;
 
     private final int DEFAULT_SIZE = 8;
 
-    Track(Context context, String title) {
+    Track(Context context, MidiDriver midi, String title) {
         mTitle = title;
         mContext = context;
+        mMidiDriver = midi;
+        mInstrument = Instrument.getInstance().PIANO;
 
         mColumnList = new ArrayList<>();
         for (int i=0; i < DEFAULT_SIZE; i++)
-            mColumnList.add(new Column(mContext, i));
+            mColumnList.add(new Column(mContext, mMidiDriver, i));
     }
 
     public void addNewColumn() {
-        Log.d("TRACK", "add new column");
-        mColumnList.add(new Column(mContext, mColumnList.size()));
+        mColumnList.add(new Column(mContext, mMidiDriver, mColumnList.size()));
     }
 
     public void deleteColumnById(int id) {
@@ -41,4 +42,23 @@ public class Track {
     public int getNumberOfColumns() {
         return mColumnList.size();
     }
+
+    public int getInstrument() {
+        return mInstrument;
+    }
+
+    public void setInstrument(int instrument) {
+        mInstrument = instrument;
+    }
+
+    protected void sendMidi(int m, int p)
+    {
+        byte msg[] = new byte[2];
+
+        msg[0] = (byte) m;
+        msg[1] = (byte) p;
+
+        mMidiDriver.write(msg);
+    }
+
 }
