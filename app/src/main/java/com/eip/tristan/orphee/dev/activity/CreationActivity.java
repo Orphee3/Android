@@ -24,6 +24,7 @@ import com.eip.tristan.orphee.dev.midi.Midi;
 import com.eip.tristan.orphee.dev.ui.Column;
 import com.eip.tristan.orphee.dev.ui.Song;
 import com.eip.tristan.orphee.dev.ui.Track;
+import com.eip.tristan.orphee.dev.ui.UIDisplayer;
 
 import org.billthefarmer.mididriver.MidiDriver;
 
@@ -36,7 +37,7 @@ import java.util.ListIterator;
 public class CreationActivity extends AppCompatActivity {
 
     protected Midi midi;
-    private Song song;
+    private UIDisplayer ui;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,7 @@ public class CreationActivity extends AppCompatActivity {
 
         midi = Midi.getInstance();
 
-        song = new Song(this, "");
-        song.addNewTrack("track1");
+        ui = new UIDisplayer(this);
     }
 
     @Override

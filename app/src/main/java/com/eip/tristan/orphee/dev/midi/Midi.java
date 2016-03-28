@@ -26,6 +26,18 @@ public class Midi implements MidiDriver.OnMidiStartListener {
         return midiDriver;
     }
 
+    public void playNote(int channel, int note) {
+        sendMidi(0x90 + channel, note, 63);
+    }
+
+    public void stopNote(int channel, int note) {
+        sendMidi(0x80 + channel, note, 0);
+    }
+
+    public void changeInstrument(int channel, int instrument) {
+        sendMidi(0xc0 + channel, instrument);
+    }
+
     public void sendMidi(int m, int p)
     {
         byte msg[] = new byte[2];
@@ -49,21 +61,6 @@ public class Midi implements MidiDriver.OnMidiStartListener {
 
     public void onMidiStart()
     {
-        // Program change - harpsicord
-
         sendMidi(0xc0, 6);
-
-        // Get the config
-
-        /*int config[] = midiDriver.config();
-        String format =
-                "maxVoices = %d\nnumChannels = %d\n" +
-                        "sampleRate = %d\nmixBufferSize = %d";
-
-        String info = String.format(format, config[0], config[1],
-                config[2], config[3]);
-
-        /*if (text != null)
-            text.setText(info);*/
     }
 }

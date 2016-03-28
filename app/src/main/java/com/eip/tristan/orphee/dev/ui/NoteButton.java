@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import com.eip.tristan.orphee.R;
 import com.eip.tristan.orphee.dev.activity.CreationActivity;
 import com.eip.tristan.orphee.dev.midi.Midi;
 
@@ -18,14 +17,16 @@ import org.billthefarmer.mididriver.MidiDriver;
  */
 public class NoteButton {
     private Context mContext;
+    private int mTrackId;
     private Button mButton;
     private int mNote;
     private boolean mLocked;
-    private Midi midiS;
+    private Midi midi;
 
-    public NoteButton(Context context, int note) {
+    public NoteButton(Context context, int trackId, int note) {
         mContext = context;
-        midiS = Midi.getInstance();
+        mTrackId = trackId;
+        midi = Midi.getInstance();
         mNote = note;
         mLocked = false;
         mButton = new Button(mContext);
@@ -40,7 +41,7 @@ public class NoteButton {
                     // Down
 
                     case MotionEvent.ACTION_DOWN:
-                        midiS.sendMidi(0x90, mNote, 63);
+                        midi.playNote(mTrackId, mNote);
                         if (mLocked) {
                             mLocked = false;
                             mButton.setBackgroundColor(Color.GRAY);
@@ -54,7 +55,7 @@ public class NoteButton {
                         // Up
 
                     case MotionEvent.ACTION_UP:
-                        midiS.sendMidi(0x80, mNote, 0);
+                        midi.stopNote(mTrackId, mNote);
                         break;
 
 
@@ -79,7 +80,6 @@ public class NoteButton {
     }
 
     public void playNote() {
-        midiS.sendMidi(0x90, mNote, 63);
+        midi.playNote(mTrackId, mNote);
     }
-
 }
