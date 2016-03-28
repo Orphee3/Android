@@ -3,6 +3,7 @@ package com.eip.tristan.orphee.dev.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,10 +47,10 @@ public class NoteButton {
                         Log.d("NOTEBUTTON", "play note " + Integer.toString(mNote) + " in channel " + Integer.toString(mTrackId));
                         if (mLocked) {
                             mLocked = false;
-                            mButton.setBackgroundColor(Color.GRAY);
+                            mButton.getBackground().setColorFilter(0xFFC7C7C7, PorterDuff.Mode.MULTIPLY);
                         } else {
                             mLocked = true;
-                            mButton.setBackgroundColor(Color.BLUE);
+                            mButton.getBackground().setColorFilter(0xFF2F41A5, PorterDuff.Mode.MULTIPLY);
                         }
 
                         break;

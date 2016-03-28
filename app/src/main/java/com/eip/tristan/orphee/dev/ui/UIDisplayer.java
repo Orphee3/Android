@@ -59,12 +59,8 @@ public class UIDisplayer {
     private void initInstrumentsList() {
         // Construct the data source
         ArrayList<Instrument> instruments = new ArrayList<Instrument>();
-        instruments.add(Instrument.PIANO1);
-        instruments.add(Instrument.GUITAR1);
-        instruments.add(Instrument.GUITAR1);
-        instruments.add(Instrument.GUITAR1);
-        instruments.add(Instrument.GUITAR1);
-        instruments.add(Instrument.GUITAR1);
+        for (int i=0; i < Instrument.values().length; i++)
+            instruments.add(Instrument.values()[i]);
         // Create the adapter to convert the array to views
         final InstrumentAdapter adapter = new InstrumentAdapter(mContext, instruments);
         // Attach the adapter to a ListView

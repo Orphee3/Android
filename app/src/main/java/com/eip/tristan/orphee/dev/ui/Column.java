@@ -60,7 +60,7 @@ public class Column {
         if (mIsPlayed) {
             mLayout.setBackgroundColor(Color.CYAN);
         } else {
-            mLayout.setBackgroundColor(Color.WHITE);
+            mLayout.setBackgroundColor(0xFFFAFAFA);
         }
     }
     public void play() {
