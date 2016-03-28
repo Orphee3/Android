@@ -2,6 +2,7 @@ package com.eip.tristan.orphee.dev.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +109,48 @@ public class Track {
             mLayout.setVisibility(View.GONE);
             mAddColumn.setVisibility(View.GONE);
         }
+    }
+
+    public void play() {
+        new PlayTask().execute("");
+    }
+
+    private class PlayTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            for (int i = 0; i < mColumnList.size(); i++) {
+                try {
+                    final Column column = mColumnList.get(i);
+                    ((Activity)mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            column.setPlayed(true);
+                        }
+                    });
+                    mColumnList.get(i).play();
+                    Thread.sleep(1000);
+                    ((Activity)mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            column.setPlayed(false);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    Thread.interrupted();
+                }
+            }
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {}
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 
 }

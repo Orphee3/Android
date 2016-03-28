@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".dev.activity.CreationActivity">
+    tools:context=".dev.activity.CreationActivity"
+    android:id="@+id/uiLayout">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -100,16 +101,29 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView2" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ListView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:id="@+id/instrumentsList" />
-        </ScrollView>
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView2" >
+
+                <ListView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/instrumentsList" />
+            </ScrollView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="play"
+                android:id="@+id/playButton" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

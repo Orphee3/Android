@@ -66,4 +66,9 @@ public class Song {
     public void deleteTrackById(int id) {
         mTrackList.remove(id);
     }
+
+    public void play() {
+        for (int i =0; i < mTrackList.size(); i++)
+            mTrackList.get(i).play();
+    }
 }

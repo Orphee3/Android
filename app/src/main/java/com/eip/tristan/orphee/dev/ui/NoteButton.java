@@ -82,7 +82,7 @@ public class NoteButton {
         return mLocked;
     }
 
-    public void playNote() {
+    public void play() {
         midi.playNote(mTrackId, mNote);
     }
 }

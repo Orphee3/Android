@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.eip.tristan.orphee.R;
 import com.eip.tristan.orphee.dev.adapter.InstrumentAdapter;
@@ -24,6 +25,7 @@ public class UIDisplayer {
     private Context mContext;
     private Midi midi;
     private Song mSong;
+    private RelativeLayout mUILayout;
     private LinearLayout mTrackButtonsLayout;
     private ArrayList<Button> buttonsList;
 
@@ -31,13 +33,22 @@ public class UIDisplayer {
         mContext = context;
         midi = Midi.getInstance();
         mSong = new Song(mContext, "");
-        mTrackButtonsLayout = (LinearLayout) ((Activity) mContext).findViewById(R.id.trackButtonsLayout);
+        mUILayout = (RelativeLayout) ((Activity) mContext).findViewById(R.id.uiLayout);
+        //mTrackButtonsLayout = (LinearLayout) ((Activity) mContext).findViewById(R.id.trackButtonsLayout);
+        mTrackButtonsLayout = (LinearLayout) mUILayout.findViewById(R.id.trackButtonsLayout);
         buttonsList = new ArrayList<>();
         Button addTrackButton = (Button) mTrackButtonsLayout.findViewById(R.id.addTrack);
         addTrackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addTrack();
+            }
+        });
+        Button playButton = (Button) mUILayout.findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playSong();
             }
         });
 
@@ -75,7 +86,11 @@ public class UIDisplayer {
     public Song getSong() {
         return mSong;
     }
-    
+
+    public void playSong() {
+        mSong.play();
+    }
+
     public void addTrack() {
         final int trackId = mSong.getNumberOfTracks();
         mSong.addNewTrack("");

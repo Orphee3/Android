@@ -2,6 +2,7 @@ package com.eip.tristan.orphee.dev.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class Column {
     private ArrayList<NoteButton> mNoteButtonList;
     private Context mContext;
     private LinearLayout mLayout;
+    private boolean mIsPlayed;
 
     private final int DEFAULT_SIZE = 12;
 
@@ -34,6 +36,7 @@ public class Column {
         mContext = context;
         mTrack = track;
         mId = id;
+        mIsPlayed = false;
         mNoteButtonList = new ArrayList<>();
 
         LayoutInflater inflater = (LayoutInflater)
@@ -50,5 +53,22 @@ public class Column {
 
     public LinearLayout getLayout() {
         return mLayout;
+    }
+
+    public void setPlayed(boolean isPlayed) {
+        mIsPlayed = isPlayed;
+        if (mIsPlayed) {
+            mLayout.setBackgroundColor(Color.CYAN);
+        } else {
+            mLayout.setBackgroundColor(Color.WHITE);
+        }
+    }
+    public void play() {
+        for (int i=0; i < mNoteButtonList.size(); i++) {
+            NoteButton noteButton = mNoteButtonList.get(i);
+            if (noteButton.isLocked()) {
+                noteButton.play();
+            }
+        }
     }
 }
