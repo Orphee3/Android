@@ -57,6 +57,7 @@ public class UIDisplayer {
         });
         LinearLayout buttonsList = (LinearLayout) mTrackButtonsLayout.findViewById(R.id.trackButtonsList);
         buttonsList.addView(button);
+        displayTrack(trackId);
     }
 
     public void deleteTrack() {

@@ -33,7 +33,7 @@ public class Song {
     public void addNewTrack(String title) {
         if (mTrackList.size() < MAX_NUMBER_OF_TRACKS) {
             mTrackList.add(new Track(mContext, mTrackList.size(), title));
-            mCurrentTrack = mTrackList.size();
+            setCurrentTrack(mTrackList.size());
         }
         else
             Log.d("SONG", "max number of tracks reached");

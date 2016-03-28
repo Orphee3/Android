@@ -23,11 +23,12 @@ public class Track {
     private Context mContext;
     private boolean mIsCurrentTrack;
     private LinearLayout mLayout;
+    private Button mAddColumn;
     private int mId;
     private Midi midi;
     private String mTitle;
     private ArrayList<Column> mColumnList;
-    private int mInstrument;
+    private Instrument mInstrument;
 
     private final int DEFAULT_SIZE = 8;
 
@@ -37,16 +38,16 @@ public class Track {
         mId = id;
         mContext = context;
         midi = Midi.getInstance();
-        mInstrument = Instrument.getInstance().PIANO;
-        setInstrument(mInstrument);
+        mInstrument = Instrument.PIANO1;
+        setInstrument(mInstrument.getId());
 
         mColumnList = new ArrayList<>();
         LayoutInflater inflater = (LayoutInflater)
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout mainLayout = (LinearLayout) ((Activity)mContext).findViewById(R.id.trackLayout);
         LinearLayout track_layout = (LinearLayout) inflater.inflate(R.layout.track_layout, mainLayout, false);
-        Button button = (Button) track_layout.findViewById(R.id.addColumn);
-        button.setOnClickListener(new View.OnClickListener() {
+        mAddColumn = (Button) track_layout.findViewById(R.id.addColumn);
+        mAddColumn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNewColumn();
@@ -75,13 +76,13 @@ public class Track {
         return mColumnList.size();
     }
 
-    public int getInstrument() {
+    public Instrument getInstrument() {
         return mInstrument;
     }
 
-    public void setInstrument(int instrument) {
-        mInstrument = instrument;
-        midi.changeInstrument(mId, mInstrument);
+    public void setInstrument(int id) {
+        mInstrument = Instrument.values()[id];
+        midi.changeInstrument(mId, id);
     }
 
     public int getId() {
@@ -94,10 +95,14 @@ public class Track {
 
     public void setCurrentTrack(boolean currentTrack) {
         mIsCurrentTrack = currentTrack;
-        if (currentTrack)
+        if (currentTrack) {
             mLayout.setVisibility(View.VISIBLE);
-        else
+            mAddColumn.setVisibility(View.VISIBLE);
+        }
+        else {
             mLayout.setVisibility(View.GONE);
+            mAddColumn.setVisibility(View.GONE);
+        }
     }
 
 }
