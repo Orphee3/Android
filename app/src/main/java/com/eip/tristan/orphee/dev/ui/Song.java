@@ -1,6 +1,8 @@
 package com.eip.tristan.orphee.dev.ui;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -68,7 +70,63 @@ public class Song {
     }
 
     public void play() {
-        for (int i =0; i < mTrackList.size(); i++)
-            mTrackList.get(i).play();
+        new PlayTask().execute("");
+    }
+
+    private int getNumberMaxOfColumns() {
+        int max = 0;
+        for (Track track : mTrackList) {
+            if (track.getNumberOfColumns() > max)
+                max = track.getNumberOfColumns();
+        }
+        return max;
+    }
+
+    private class PlayTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            int maxColumns = getNumberMaxOfColumns();
+            for (int i = 0; i < maxColumns; i++) {
+                for (Track track : mTrackList) {
+                    if (track.getNumberOfColumns() >= i) {
+                        final Column column = track.getColumnById(i);
+                        ((Activity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                column.setPlayed(true);
+                            }
+                        });
+                        column.play();
+                    }
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.interrupted();
+                }
+                for (Track track : mTrackList) {
+                    if (track.getNumberOfColumns() >= i) {
+                        final Column column = track.getColumnById(i);
+                        ((Activity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                column.setPlayed(false);
+                            }
+                        });
+                    }
+                }
+            }
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {}
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
     }
 }
