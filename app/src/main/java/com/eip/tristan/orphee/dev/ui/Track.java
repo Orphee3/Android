@@ -2,6 +2,7 @@ package com.eip.tristan.orphee.dev.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +40,7 @@ public class Track {
         mContext = context;
         midi = Midi.getInstance();
         mInstrument = Instrument.PIANO1;
-        setInstrument(mInstrument.getId());
+        setInstrument(mInstrument);
 
         mColumnList = new ArrayList<>();
         LayoutInflater inflater = (LayoutInflater)
@@ -60,6 +61,8 @@ public class Track {
             mLayout.addView(column.getLayout());
         }
         mainLayout.addView(track_layout, mId);
+
+        Log.d("TRACK", "track " + Integer.toString(mId) + " created");
     }
 
     public void addNewColumn() {
@@ -80,9 +83,11 @@ public class Track {
         return mInstrument;
     }
 
-    public void setInstrument(int id) {
-        mInstrument = Instrument.values()[id];
-        midi.changeInstrument(mId, id);
+    public void setInstrument(Instrument instrument) {
+        mInstrument = instrument;
+        //mInstrument = Instrument.values()[id];
+        Log.d("TRACK", "change instrument to " + mInstrument.getName() + " in channel " + Integer.toString(mId));
+        midi.changeInstrument(mId, mInstrument.getId());
     }
 
     public int getId() {

@@ -3,6 +3,7 @@ package com.eip.tristan.orphee.dev.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,7 @@ public class NoteButton {
 
                     case MotionEvent.ACTION_DOWN:
                         midi.playNote(mTrackId, mNote);
+                        Log.d("NOTEBUTTON", "play note " + Integer.toString(mNote) + " in channel " + Integer.toString(mTrackId));
                         if (mLocked) {
                             mLocked = false;
                             mButton.setBackgroundColor(Color.GRAY);
@@ -55,6 +57,7 @@ public class NoteButton {
                         // Up
 
                     case MotionEvent.ACTION_UP:
+                        Log.d("NOTEBUTTON", "stop note " + Integer.toString(mNote) + " in channel " + Integer.toString(mTrackId));
                         midi.stopNote(mTrackId, mNote);
                         break;
 

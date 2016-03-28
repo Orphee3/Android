@@ -21,26 +21,29 @@ public class Song {
     private Context mContext;
     private String mTitle;
     private ArrayList<Track> mTrackList;
-    private int mCurrentTrack;
 
     public Song(Context context, String title) {
         mContext = context;
         mTitle = title;
         mTrackList = new ArrayList<>();
-        mCurrentTrack = 0;
     }
 
     public void addNewTrack(String title) {
         if (mTrackList.size() < MAX_NUMBER_OF_TRACKS) {
             mTrackList.add(new Track(mContext, mTrackList.size(), title));
-            setCurrentTrack(mTrackList.size());
+            Log.d("SONG", "set current track "+ Integer.toString(mTrackList.size() - 1));
+            setCurrentTrack(mTrackList.size() - 1);
         }
         else
             Log.d("SONG", "max number of tracks reached");
     }
 
     public Track getCurrentTrack() {
-        return mTrackList.get(mCurrentTrack);
+        for (int i=0; i < mTrackList.size(); i++) {
+            if (mTrackList.get(i).isCurrentTrack())
+                return mTrackList.get(i);
+        }
+        return null;
     }
 
     public void setCurrentTrack(int id) {
