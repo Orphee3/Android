@@ -115,7 +115,4 @@ public class Track {
         return mColumnList.get(id);
     }
 
-    public void play() {
-       // new PlayTask().execute("");
-    }
 }

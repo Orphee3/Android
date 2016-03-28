@@ -22,11 +22,13 @@ public class Song {
 
     private Context mContext;
     private String mTitle;
+    private int mTempo;
     private ArrayList<Track> mTrackList;
 
     public Song(Context context, String title) {
         mContext = context;
         mTitle = title;
+        mTempo = 60;
         mTrackList = new ArrayList<>();
     }
 
@@ -69,6 +71,14 @@ public class Song {
         mTrackList.remove(id);
     }
 
+    public void setTempo(int tempo) {
+        mTempo = tempo;
+    }
+
+    public int getTempo() {
+        return mTempo;
+    }
+
     public void play() {
         new PlayTask().execute("");
     }
@@ -101,7 +111,7 @@ public class Song {
                     }
                 }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(60000 / mTempo);
                 } catch (InterruptedException e) {
                     Thread.interrupted();
                 }

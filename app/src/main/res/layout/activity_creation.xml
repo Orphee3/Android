@@ -129,14 +129,20 @@
                 android:layout_height="wrap_content"
                 android:text="play"
                 android:id="@+id/playButton"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="10dp" />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/tempo"
+                android:layout_marginTop="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="save"
                 android:id="@+id/saveButton"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="10dp" />
         </LinearLayout>
 
     </LinearLayout>

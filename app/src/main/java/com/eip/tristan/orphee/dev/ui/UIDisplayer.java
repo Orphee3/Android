@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
 import com.eip.tristan.orphee.R;
@@ -49,6 +50,17 @@ public class UIDisplayer {
             @Override
             public void onClick(View v) {
                 playSong();
+            }
+        });
+        NumberPicker tempoPicker  = (NumberPicker) mUILayout.findViewById(R.id.tempo);
+        tempoPicker.setValue(60);
+        tempoPicker.setMaxValue(300);
+        tempoPicker.setMinValue(30);
+        tempoPicker.setWrapSelectorWheel(true);
+        tempoPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                mSong.setTempo(newVal);
             }
         });
 
