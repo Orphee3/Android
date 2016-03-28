@@ -89,7 +89,7 @@ public class Song {
             int maxColumns = getNumberMaxOfColumns();
             for (int i = 0; i < maxColumns; i++) {
                 for (Track track : mTrackList) {
-                    if (track.getNumberOfColumns() >= i) {
+                    if (track.getNumberOfColumns() > i) {
                         final Column column = track.getColumnById(i);
                         ((Activity) mContext).runOnUiThread(new Runnable() {
                             @Override
@@ -106,7 +106,7 @@ public class Song {
                     Thread.interrupted();
                 }
                 for (Track track : mTrackList) {
-                    if (track.getNumberOfColumns() >= i) {
+                    if (track.getNumberOfColumns() > i) {
                         final Column column = track.getColumnById(i);
                         ((Activity) mContext).runOnUiThread(new Runnable() {
                             @Override
