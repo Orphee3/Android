@@ -20,9 +20,16 @@
             android:layout_width="470dp"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Track 1 - Piano 1"
+                android:id="@+id/indicator" />
+
             <ScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:id="@+id/scrollView" >
 
                 <LinearLayout
@@ -199,17 +206,17 @@
                 </LinearLayout>
             </ScrollView>
 
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/tempo"
+                android:layout_marginTop="20dp" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="play"
                 android:id="@+id/playButton"
-                android:layout_marginTop="10dp" />
-
-            <NumberPicker
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/tempo"
                 android:layout_marginTop="10dp" />
 
             <Button

@@ -70,6 +70,6 @@ public class Midi implements MidiDriver.OnMidiStartListener {
 
     public void onMidiStart()
     {
-        sendMidi(0xc0, 6);
+        changeInstrument(0, Instrument.PIANO1.getId());
     }
 }

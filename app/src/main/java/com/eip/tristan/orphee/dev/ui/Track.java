@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.eip.tristan.orphee.R;
@@ -26,6 +27,7 @@ public class Track {
     private boolean mIsCurrentTrack;
     private LinearLayout mLayout;
     private Button mAddColumn;
+    private TextView mIndicator;
     private int mId;
     private Midi midi;
     private String mTitle;
@@ -41,11 +43,11 @@ public class Track {
         mContext = context;
         midi = Midi.getInstance();
         mInstrument = Instrument.PIANO1;
-        setInstrument(mInstrument);
 
         mColumnList = new ArrayList<>();
         LayoutInflater inflater = (LayoutInflater)
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout uiLayout = (RelativeLayout) ((Activity) mContext).findViewById(R.id.uiLayout);
         LinearLayout mainLayout = (LinearLayout) ((Activity)mContext).findViewById(R.id.trackLayout);
         LinearLayout track_layout = (LinearLayout) inflater.inflate(R.layout.track_layout, mainLayout, false);
         mAddColumn = (Button) track_layout.findViewById(R.id.addColumn);
@@ -55,6 +57,7 @@ public class Track {
                 addNewColumn();
             }
         });
+        mIndicator = (TextView) uiLayout.findViewById(R.id.indicator);
         mLayout = (LinearLayout) track_layout.findViewById(R.id.trackContent);
         for (int i =0; i < DEFAULT_SIZE; i++) {
             Column column = new Column(mContext, this, i);
@@ -62,6 +65,8 @@ public class Track {
             mLayout.addView(column.getLayout());
         }
         mainLayout.addView(track_layout, mId);
+
+        setInstrument(mInstrument);
 
         Log.d("TRACK", "track " + Integer.toString(mId) + " created");
     }
@@ -89,6 +94,7 @@ public class Track {
         //mInstrument = Instrument.values()[id];
         Log.d("TRACK", "change instrument to " + mInstrument.getName() + " in channel " + Integer.toString(mId));
         midi.changeInstrument(mId, mInstrument.getId());
+        mIndicator.setText("Track "+ Integer.toString(mId) + " - " + mInstrument.getName());
     }
 
     public int getId() {
@@ -104,6 +110,7 @@ public class Track {
         if (currentTrack) {
             mLayout.setVisibility(View.VISIBLE);
             mAddColumn.setVisibility(View.VISIBLE);
+            mIndicator.setText("Track "+ Integer.toString(mId) + " - " + mInstrument.getName());
         }
         else {
             mLayout.setVisibility(View.GONE);
